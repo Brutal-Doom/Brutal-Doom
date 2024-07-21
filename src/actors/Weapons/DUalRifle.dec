@@ -115,6 +115,7 @@ ACTOR DualRifles : BrutalWeapon
 		Goto Ready3
 
 	Select:
+		TNT1 A 0 A_TakeInventory("BurstCounter", 0x7FFFFFFF)
 		TNT1 A 0 A_Giveinventory("GoSpecial",1)
 		TNT1 A 0 A_GiveInventory("TokenCleaner")
 		TNT1 A 0 A_Giveinventory("RifleSelected",1)
@@ -163,7 +164,7 @@ ACTOR DualRifles : BrutalWeapon
 		Goto Ready
 
 	Deselect:
-		DURI A 0
+		DURI A 0 A_TakeInventory("BurstCounter", 0x7FFFFFFF)
 		DURI A 0 A_Takeinventory("Zoomed",1)
 		DURI A 0 A_Takeinventory("ADSmode",1)
 		DURI A 0 A_TakeInventory("TossGrenade", 1)
@@ -209,7 +210,9 @@ ACTOR DualRifles : BrutalWeapon
 		//RIFF A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 16, -4, 0, 0)
 		DURI A 0 A_AlertMonsters
 		DURI A 0 A_SpawnItemEx("PlayerMuzzle1",30,5,30)
-		DURI B 1 BRIGHT A_FireBullets (5, 3, -1, 25, "MachineGunBulletPuff", FBF_NORANDOM)
+		DURI F 0 A_JumpIfInventory("BurstCounter",1,2)
+		DURI B 0
+		DURI "#" 1 BRIGHT A_FireBullets (5, 3, -1, 25, "MachineGunBulletPuff", FBF_NORANDOM)
 		RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,3), 0, 10, -6, 0, random(-2,2))
 		DURI A 0 A_ZoomFactor(0.97)
 		DURI A 0 A_SetPitch(-1.2 + pitch)
@@ -239,7 +242,9 @@ ACTOR DualRifles : BrutalWeapon
 		DURI A 0 A_PlaySound("Rifle/Fire", 1)
 		//RIFF A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, -16, -4, 0, 0)
 		DURI A 0 A_SpawnItemEx("PlayerMuzzle1",30,5,30)
-		DURI D 1 BRIGHT A_FireBullets (5, 3, -1, 25, "HitPuff", FBF_NORANDOM)
+		DURI G 0 A_JumpIfInventory("BurstCounter",1,2)
+		DURI D 0
+		DURI "#" 1 BRIGHT A_FireBullets (5, 3, -1, 25, "HitPuff", FBF_NORANDOM)
 		RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-3,1), 0, -10, -6, 0, random(-2,2))
 		DURI A 0 A_ZoomFactor(0.97)
 		DURI A 0 A_SetPitch(-1.2 + pitch)
@@ -247,77 +252,18 @@ ACTOR DualRifles : BrutalWeapon
 		DURI E 1 A_FireCustomMissile("RifleCaseSpawn",5,0,-8,-14)
 		DURI A 0 A_ZoomFactor(1.0)
 		DURI A 0 A_SetANgle(angle + random(-1, 1))
-	Fire3:
-		DURI A 0 A_JumpIfInventory("NoReloading",1,"NoReload3")
-		DURI A 0 A_JumpIfInventory("DoubleRifleAmmo",1,1)
-		Goto NoAmmo
-		DURI A 0 A_JumpIfInventory("RifleAmmo",1,1)
-		Goto Fire4
-		DURI A 0 A_Takeinventory("RifleAmmo",1)
-		DURI A 0 A_Takeinventory("DoubleRifleAmmo",1)
-		"####" A 0 A_JumpIfInventory("RifleAmmo",9,2)
-		"####" A 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
-		"####" AAA 0
-		Goto ResumeFireFrame3
-
-	NoReload3:
-		DURI A 0 A_JumpIfInventory("Clip2",1,1)
-		Goto NoAmmo
-		DURI A 0 A_Takeinventory("Clip2",1,TIF_NOTAKEINFINITE)
-		"####" A 0 A_JumpIfInventory("Clip2",9,2)
-		"####" A 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
-		"####" AAA 0
-	ResumeFireFrame3:
-		DURI A 0 A_PlaySound("FARRIF", 6)
-		DURI A 0 A_PlaySound("Rifle/Fire", 1)
-		//RIFF A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 16, -4, 0, 0)
-		DURI A 0 A_AlertMonsters
-		DURI A 0 A_SpawnItemEx("PlayerMuzzle1",30,5,30)
-		DURI F 1 BRIGHT A_FireBullets (5, 3, -1, 25, "MachineGunBulletPuff", FBF_NORANDOM)
-		RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,3), 0, 10, -6, 0, random(-2,2))
-		DURI A 0 A_ZoomFactor(0.97)
-		DURI A 0 A_SetPitch(-1.6 + pitch)
-		DURI A 0 A_SetPitch(+0.4 + pitch)
-		DURI G 1 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-14)
-		DURI A 0 A_ZoomFactor(1.0)
-		DURI A 0 A_SetANgle(angle + random(-1, 1))
-	Fire4:
-		DURI A 0 A_JumpIfInventory("NoReloading",1,"NoReload4")
-		DURI A 0 A_JumpIfInventory("DoubleRifleAmmo",1,1)
-		Goto NoAmmo
-		DURI A 0 A_Takeinventory("DoubleRifleAmmo",1)
-		"####" A 0 A_JumpIfInventory("RifleAmmo",9,2)
-		"####" A 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
-		"####" AAA 0
-		Goto ResumeFireFrame4
-
-	NoReload4:
-		DURI A 0 A_JumpIfInventory("Clip2",1,1)
-		Goto NoAmmo
-		DURI A 0 A_Takeinventory("Clip2",1,TIF_NOTAKEINFINITE)
-		"####" A 0 A_JumpIfInventory("Clip2",9,2)
-		"####" A 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
-		"####" AAA 0
-	ResumeFireFrame4:
-		DURI A 0 A_PlaySound("FARRIF", 6)
-		DURI A 0 A_PlaySound("Rifle/Fire", 1)
-		//RIFF A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, -16, -4, 0, 0)
-		DURI A 0 A_SpawnItemEx("PlayerMuzzle1",30,5,30)
-		DURI H 1 BRIGHT A_FireBullets (5, 3, -1, 25, "MachineGunBulletPuff", FBF_NORANDOM)
-		RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-3,1), 0, -10, -6, 0, random(-2,2))
-		DURI A 0 A_ZoomFactor(0.97)
-		DURI A 0 A_SetPitch(-1.6 + pitch)
-		DURI A 0 A_SetPitch(+0.4 + pitch)
-		DURI I 1 A_FireCustomMissile("RifleCaseSpawn",5,0,-8,-14)
-		DURI A 0 A_ZoomFactor(1.0)
-		DURI A 0 A_SetANgle(angle + random(-1, 1))
+		DURI A 0 A_JumpIfInventory("BurstCounter",1,3)
+		DURI A 0 A_GiveInventory("BurstCounter",1)
+		Goto Fire
+		DURI AAA 0
+		DURI A 0 A_TakeInventory("BurstCounter",1)
 		DURI A 0 A_Refire
-		DURI J 1 A_WeaponReady(1)
+		DURI H 1 A_WeaponReady(1)
 		DURI A 3 A_WeaponReady(1)
 		Goto Ready3
 
 	NoAmmo:
-		DURI A 1
+		DURI A 1 A_TakeInventory("BurstCounter", 0x7FFFFFFF)
 		RIFG A 0 A_ZoomFactor(1.0)
 		RIFG A 0 A_Takeinventory("Zoomed",1)
 		RIFG A 0 A_Takeinventory("ADSmode",1)
