@@ -821,6 +821,11 @@ Script "ShotgunguySpawner" (void)
 	}
 }
 
+script "LowAmmoSFX" (void) clientside
+{
+	if (BDCVarInfo[PlayerNumber()].bd_lowammosfx == 1)	{PlaySound(0,"weapons/lowammo",CHAN_AUTO,1.0,false,1.0,true);}
+}
+
 //Zio Scripts
 Script "BDDisableChainsawSpawner" (VOID)
 {

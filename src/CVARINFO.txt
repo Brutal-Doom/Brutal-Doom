@@ -109,6 +109,7 @@ user bool bd_centeredhud = false;
 server int sv_dropitems = 0;
 server int bd_zombiemanspawn = 0;
 server int bd_shotgunguyspawn = 0;
+user bool bd_lowammosfx = false;
 
 
 ////ZioMcCall's Cvars

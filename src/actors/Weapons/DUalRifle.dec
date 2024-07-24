@@ -192,16 +192,13 @@ ACTOR DualRifles : BrutalWeapon
 		DURI A 0 A_Takeinventory("RifleAmmo",1)
 		DURI A 0 A_Takeinventory("DoubleRifleAmmo",1)
 		"####" A 0 A_JumpIfInventory("RifleAmmo",9,2)
-		"####" A 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
+		"####" A 0 ACS_NamedExecute("LowAmmoSFX")
 		"####" AAA 0
 		Goto ResumeFireFrame
-
 	NoReload:
 		DURI A 0 A_JumpIfInventory("Clip2",1,1)
 		Goto NoAmmo
 		DURI A 0 A_Takeinventory("Clip2",1,TIF_NOTAKEINFINITE)
-		"####" A 0 A_JumpIfInventory("Clip2",9,2)
-		"####" A 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
 		"####" AAA 0
 	ResumeFireFrame:
 		TNT1 AA 0
@@ -226,16 +223,13 @@ ACTOR DualRifles : BrutalWeapon
 		Goto NoAmmo
 		DURI A 0 A_Takeinventory("DoubleRifleAmmo",1)
 		"####" A 0 A_JumpIfInventory("DoubleRifleAmmo",9,2)
-		"####" A 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
+		"####" A 0 ACS_NamedExecute("LowAmmoSFX")
 		"####" AAA 0
 		Goto ResumeFireFrame2
-
 	NoReload2:
 		DURI A 0 A_JumpIfInventory("Clip2",1,1)
 		Goto NoAmmo
 		DURI A 0 A_Takeinventory("Clip2",1,TIF_NOTAKEINFINITE)
-		"####" A 0 A_JumpIfInventory("Clip2",9,2)
-		"####" A 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
 		"####" AAA 0
 	ResumeFireFrame2:
 		DURI A 0 A_PlaySound("FARRIF", 6)

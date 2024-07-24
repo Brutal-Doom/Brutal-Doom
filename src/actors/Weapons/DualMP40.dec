@@ -118,7 +118,7 @@ ACTOR DualMP40 : BrutalWeapon
 		TNT1 A 0 A_Takeinventory("MP40Ammo",1)
 		TNT1 A 0 A_Takeinventory("DualMP40Ammo",1)
 		TNT1 A 0 A_JumpIfInventory("MP40Ammo",9,2)
-		TNT1 A 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
+		TNT1 A 0 ACS_NamedExecute("LowAmmoSFX")
 		TNT1 AAA 0
 		Goto ResumeFireFrame1
 
@@ -126,8 +126,6 @@ ACTOR DualMP40 : BrutalWeapon
 		MP42 A 0 A_JumpIfInventory("Mauser9mm",1,1)
 		Goto NoAmmo
 		MP42 A 0 A_TakeInventory("Mauser9mm",1,TIF_NOTAKEINFINITE)
-		TNT1 A 0 A_JumpIfInventory("Mauser9mm",9,2)
-		TNT1 A 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
 		TNT1 AAA 0
 	ResumeFireFrame1:
 		TNT1 AAAA 0
@@ -142,20 +140,22 @@ ACTOR DualMP40 : BrutalWeapon
 		TNT1 A 0
 		MP42 C 1 A_FireCustomMissile("DecorativeTracer", random(-6,3), 0, 5, 0)
 		TNT1 A 0 A_FireCustomMissile("PistolCaseSpawn",5,0,6,-2)
+	FireLeft:	
 		TNT1 A 0 A_JumpIfInventory("NoReloading",1,"NoReload2")
 		TNT1 A 0 A_JumpIfInventory("MP40Ammo",1,1)//Checks if single gun is not depleted
 		Goto NoAmmoOnSecondGun
 		TNT1 A 0 A_JumpIfInventory("DualMP40Ammo",1,1)
 		Goto NoAmmo
 		TNT1 A 0 A_Takeinventory("DualMP40Ammo",1)
+		TNT1 A 0 A_JumpIfInventory("DualMP40Ammo",8,2)
+		TNT1 A 0 ACS_NamedExecute("LowAmmoSFX")	
+		TNT1 AAA 0		
 		Goto ResumeFireFrame2
 
 	NoReload2:
 		TNT1 A 0 A_JumpIfInventory("Mauser9mm",1,1)
 		Goto NoAmmo
 		TNT1 A 0 A_TakeInventory("Mauser9mm",1,TIF_NOTAKEINFINITE)
-		TNT1 A 0 A_JumpIfInventory("Mauser9mm",9,2)
-		TNT1 A 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
 		TNT1 AAA 0
 	ResumeFireFrame2:
 		TNT1 A 0 A_PlaySound("FARSHT", 6)

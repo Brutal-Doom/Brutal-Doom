@@ -173,16 +173,13 @@ ACTOR DualPistols : BrutalWeapon
 		PI2G A 0 A_Takeinventory("BDPistolAmmo",1)
 		PI2G A 0 A_Takeinventory("BDDualPistolAmmo",1)
 		"####" A 0 A_JumpIfInventory("BDPistolAmmo",6,2)
-		"####" A 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
+		"####" A 0 ACS_NamedExecute("LowAmmoSFX")
 		"####" AAA 0
 		Goto FireContinueRight
-
 	NoReload:
 		PI2G A 0 A_JumpIfInventory("Clip1",1,1)
 		Goto NoAmmo
 		PI2G A 0 A_Takeinventory("Clip1",1,TIF_NOTAKEINFINITE)
-		"####" A 0 A_JumpIfInventory("Clip1",6,2)
-		"####" A 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
 		"####" AAA 0
 	FireContinueRight:
 		TNT1 A 0 A_AlertMonsters
@@ -202,16 +199,13 @@ ACTOR DualPistols : BrutalWeapon
 		Goto NoAmmo
 		PI2G A 0 A_Takeinventory("BDDualPistolAmmo",1)
 		"####" A 0 A_JumpIfInventory("BDDualPistolAmmo",5,2)
-		"####" A 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
+		"####" A 0 ACS_NamedExecute("LowAmmoSFX")
 		"####" AAA 0
 		Goto FireContinueLeft
-
 	NoReload2:
 		PI2G A 0 A_JumpIfInventory("Clip1",1,1)
 		Goto NoAmmo
 		PI2G A 0 A_Takeinventory("Clip1",1,TIF_NOTAKEINFINITE)
-		"####" A 0 A_JumpIfInventory("Clip1",6,2)
-		"####" A 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
 		"####" AAA 0
 	FireContinueLeft:
 		TNT1 A 0 A_AlertMonsters

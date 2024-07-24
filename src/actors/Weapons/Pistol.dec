@@ -198,7 +198,7 @@ ACTOR BrutalPistol : BrutalWeapon
 		"####" E 0 A_Takeinventory("BDPistolAmmo",1)
 		"####" E 0 A_Takeinventory("BDDualPistolAmmo",1)
 		"####" E 0 A_JumpIfInventory("BDPistolAmmo",6,2)
-		"####" E 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
+		"####" E 0 ACS_NamedExecute("LowAmmoSFX")
 		"####" EEE 0
 		Goto ResumeFireFrame
 
@@ -206,8 +206,6 @@ ACTOR BrutalPistol : BrutalWeapon
 		"####" E 0 A_JumpIfInventory("Clip1",1,1)
 		Goto NoAmmo
 		"####" E 0 A_Takeinventory("Clip1",1,TIF_NOTAKEINFINITE)
-		"####" A 0 A_JumpIfInventory("Clip1",6,2)
-		"####" E 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
 		"####" EEE 0
 	ResumeFireFrame:
 		"####" A 0

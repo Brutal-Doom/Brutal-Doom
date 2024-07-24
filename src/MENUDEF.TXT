@@ -550,6 +550,8 @@ OptionMenu "BrutalDoomOptionsPlayer"
 
 	Option "$BD_PLAYER_OPTIONS_PICKUP","bd_norandompickupsprites", "OffOn"
 	StaticText " "
+	Option "$BD_PLAYER_OPTIONS_LOWAMMOSFX","bd_lowammosfx","OnOff"
+	StaticText " "	
 }
 
 OptionMenu "BDScalingOptions"

@@ -444,6 +444,7 @@ BD_PLAYER_OPTIONS_WEAPON = "Weapon Pickup animation";
 BD_PLAYER_OPTIONS_WEAPON_TEXT1 = "Plays an animation when you pickup a weapon for the first time.";
 BD_PLAYER_OPTIONS_WEAPON_TEXT2 = "(Best toggled before starting a new game)";
 BD_PLAYER_OPTIONS_PICKUP = "Randomized pickup sprites";
+BD_PLAYER_OPTIONS_LOWAMMOSFX = "Low Ammo SFX";
 
 BD_MAP_SELECTION = "BDTestMapSelection";
 BD_MAP_SELECTION_TEXT = "Select your Test Map";

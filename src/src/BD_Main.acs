@@ -107,7 +107,7 @@ struct BD_CVarInfo
 	int zdoombd_shotgunstrap;
 	int bd_Quips;
 	int bd_Tips;
-
+	bool bd_lowammosfx;
 } BDCVarInfo[MAX_PLAYERS];
 
 script "ServerCVars" OPEN
@@ -178,6 +178,7 @@ script "ClientCVars" ENTER
 	BDCVarInfo[PlayerNumber()].zdoombd_shotgunstrap = GetCvar("zdoombd_shotgunstrap");
 	BDCVarInfo[PlayerNumber()].bd_Quips = GetCvar("bd_Quips");
 	BDCVarInfo[PlayerNumber()].bd_Tips = GetCvar("bd_Tips");
+	BDCVarInfo[PlayerNumber()].bd_lowammosfx = GetCvar("bd_lowammosfx");
 	delay(1);
 }
 
@@ -242,6 +243,7 @@ script "DefaultCvars" (void) net
 	SetUserCVAR(PlayerNumber(), "bd_centeredhud", 0);
 	SetUserCVAR(PlayerNumber(), "bd_Quips", 0);
 	SetUserCVAR(PlayerNumber(), "bd_Tips", 1);
+	SetUserCVAR(PlayerNumber(), "bd_lowammosfx", 0);	
 	ACS_NamedExecute("ServerCVars", 0);
 	ACS_NamedExecute("ClientCVars", 0);
 	ACS_NamedExecute("BDRespawn", 0);
@@ -300,6 +302,7 @@ script "AllCvarsOn" (void) net
 	SetUserCVAR(PlayerNumber(), "bd_centeredhud", 0);
 	SetUserCVAR(PlayerNumber(), "bd_Quips", 1);
 	SetUserCVAR(PlayerNumber(), "bd_Tips", 1);
+	SetUserCVAR(PlayerNumber(), "bd_lowammosfx", 1);
 	ACS_NamedExecute("ServerCVars", 0);
 	ACS_NamedExecute("ClientCVars", 0);
 	ACS_NamedExecute("BDRespawn", 0);
@@ -359,6 +362,7 @@ script "MinimalismCvars" (void) net
 	SetUserCVAR(PlayerNumber(), "bd_centeredhud", 0);
 	SetUserCVAR(PlayerNumber(), "bd_Quips", 1);
 	SetUserCVAR(PlayerNumber(), "bd_Tips", 1);
+	SetUserCVAR(PlayerNumber(), "bd_lowammosfx", 1);	
 	ACS_NamedExecute("ServerCVars", 0);
 	ACS_NamedExecute("ClientCVars", 0);
 	ACS_NamedExecute("BDRespawn", 0);
