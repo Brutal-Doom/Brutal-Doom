@@ -279,6 +279,14 @@ Plasma/Pickup PLSPCK
 Plasma/Beep BEP
 Plasma/BeepBeep BEPBEP
 
+$random Plasma/Impact { PLASHIT1 PLASHIT2 PLASHIT3 PLASHIT4 PLASHIT5 }
+PLASHIT1 PLASHIT1
+PLASHIT2 PLASHIT2
+PLASHIT3 PLASHIT3
+PLASHIT4 PLASHIT4
+PLASHIT5 PLASHIT5
+
+$limit Plasma/Impact 6
 //////////////////////////////RAILGUN
 Railgun/Fire RAILF1
 Railgun/Recharge RAILR1

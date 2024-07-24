@@ -847,7 +847,7 @@ ACTOR Plasma_Ball: FastProjectile
 	Scale 1.0
 	renderstyle ADD
 	alpha 0.99
-	DeathSound "weapons/Plasmax"
+	DeathSound "Plasma/Impact"
 	//SeeSound "Plasma/Fire"
 	SeeSound "dsempty"
 	Obituary "$OBBD_PLASMA"

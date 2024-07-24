@@ -378,4 +378,119 @@ script "PerformanceFriendlyCVARS" (void) net
 	delay(1);
 }
 
+Script "CheckSourcePortOptions" (void)// net clientside
+{
+	int IsSomethingWrong;
+	Log(s:"\n\n\cc-----------------------------------------------------------------------");
+	Log(s:"\ccChecking source port options for any potentially confusing values... (Suggestions regarding which options to check for are welcomed!)\n\n");
+	
+	if (GameType() != 0)
+	{
+	log(s:"Results can be inaccurate in netplay! Please use this command only in singleplayer.");
+	terminate;
+	}
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Non-important reports first (those wont potentially make it seem like something is wrong)
+	If(GetCVAR("gl_texture_filter") != 0)
+	{
+		Log(s:"\cfTexture filtering (gl_texture_filter) is not 0. Textures and sprites will appear blurry.");
+	}
+	Delay(1);
+	If(GetCVAR("nomonsterinterpolation") != 0)
+	{
+		Log(s:"\cfDisabled monster movement interpolation \ck(nomonsterinterpolation) \cfis not 0. Monster movement won't be smoothed out.");
+	}
+	Delay(1);
+	If(GetCVAR("gl_spriteclip") != 2)
+	{
+		Log(s:"\cfSprite clipping \ck(gl_spriteclip) \cfis not 2. Brutal Doom's hitboxes are most accurate to this type of sprite clipping.");
+	}
+	Delay(1);
+	
+	
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Important reports (those could make someone think something is wrong)
+	
+	If(GetCVAR("r_drawplayersprites") != 1)
+	{
+		Log(s:"\cgDrawing weapon sprites (r_drawplayersprites) is not 1. Player sprites will not be drawn.");
+		IsSomethingWrong++;
+	}
+	Delay(1);
+	If(GetCVAR("gl_light_sprites") != 1)
+	{
+		Log(s:"\cgLights affect sprites (gl_light_sprites) is not 1. Dynamic lights won't affect actors.");
+		IsSomethingWrong++;
+	}
+	Delay(1);
+	If(GetCVAR("gl_texture") != 1)
+	{
+		Log(s:"\cgDrawing textures (gl_texture) is not 1. Textures will not be rendered.");
+		IsSomethingWrong++;
+	}
+	Delay(1);
+	
+	If(GetCVAR("gl_texture_format") != 0)
+	{
+		Log(s:"\cgTexture format (gl_texture_format) is not 0. Sprites and texture's colors and transparency might not render properly.");
+		IsSomethingWrong++;
+	}
+	Delay(1);
+	
+	
+	
+	
+	/////////////////////////////
+	//SOURCE PORT EXCLUSIVE STUFF NOW
+	if( IsGZDoom() )
+	{
+		//yellow
+		If(GetCVAR("gl_billboard_faces_camera") != 0)
+		{
+			Log(s:"\cfSprites facing camera (gl_billboard_faces_camera) is not 0. Sprites will turn and shift in a weird way.");
+		}
+		Delay(1);
+	
+		//red
+	
+	}
+	else
+	{
+		//yellow
+		If(GetCVAR("gl_lights_additive") != 0)
+		{
+			Log(s:"\cfAdditive lighting (gl_lights_additive) is not 0. Dynamic lights might appear flat.");
+		}
+		Delay(1);
+		
+		If(GetCVAR("gl_use_models") != 1)
+		{
+			Log(s:"\cfUsing models \ck(gl_use_models) \cfis not 1. Some actors or effects might decline in quality.");
+		}
+		Delay(1);
+		
+		//red
+		
+		
+		
+	}
+	
+
+	
+
+
+	If(IsSomethingWrong == 0)
+	{
+		Log(s:"\n\n\cdAll engine options seem to have their proper values.");
+	}
+	else
+	{
+		Log(s:"\n\n\caPlease review these settings for an optimal experience with the mod.");
+	}
+	Delay(3);
+	terminate;
+}
 
